@@ -8,7 +8,7 @@
     "package": "electron-packager . \"Void While\" --platform=darwin --arch=x64 --out ./dist --version 0.35.1 --overwrite --icon=./images/icon.icns"
   },
   "keywords": [
-    "Qtip",
+    "Electron",
     "quick",
     "start",
     "tutorial"

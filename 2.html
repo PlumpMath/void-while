@@ -71,18 +71,16 @@ body > div {
     function moveSomething(e) {
         switch(e.keyCode) {
             case 37:
-                // left key pressed
-                window.location.href='./index5.html';
+                window.location.href='./1.html';
                 break;
             case 39:
-                // right key pressed
-                window.location.href='./index2trails.html';
+                window.location.href='./3.html';
                 break;
         }
     }
 </script>
   <script>
-      setTimeout(function(){ window.location.href = './index2trails.html'; }, 507000);
+      setTimeout(function(){ window.location.href = './3.html'; }, 507000);
   </script>
   <script>
     var scene, camera, renderer;
@@ -143,9 +141,6 @@ body > div {
     $(document).ready(function() {
       $("#backgroundaudio").hide("slow", function() {});
     });
-    document.body.addEventListener("keydown", function() {
-      THREEx.FullScreen.request();
-    }, false);
   </script>
   <script src: 'jquery.min.js'></script>
   <style>

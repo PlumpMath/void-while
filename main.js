@@ -8,7 +8,7 @@ let mainWindow;
 function createWindow () {
   mainWindow = new BrowserWindow({width: 800, height: 600});
   mainWindow.setFullScreen(true);
-  mainWindow.loadURL('file://' + __dirname + '/index5.html');
+  mainWindow.loadURL('file://' + __dirname + '/1.html');
   mainWindow.on('closed', function() {
     mainWindow = null;
   });

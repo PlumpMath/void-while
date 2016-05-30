@@ -2,7 +2,11 @@ dist
 1.wav
 2.wav
 3.wav
+4.wav
+5.wav
+6.wav
 
+.gitignore
 
 # Created by https://www.gitignore.io/api/osx,node,linux
 

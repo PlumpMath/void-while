@@ -4,86 +4,31 @@
 <head>
   <meta charset="utf-8">
   <title>Void While</title>
-  <script src="three.min.js"></script>
+  <link href="styles.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
-<style media="screen" type="text/css">
-  html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-body > div {
-    height: 100%;
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
-}
-  </style>
-
-<style media="screen" type="text/css">
-  body {
-    margin: 0 !important;
-  }
-
-  #backgroundaudio {
-    display: block;
-    position: static;
-    bottom: -43px;
-    left: 5px;
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    -ms-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    transition: all 1s ease-in-out;
-  }
-
-  #backgroundaudio:hover {
-    bottom: 0;
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    -ms-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    transition: all 1s ease-in-out;
-  }
-
-  #backgroundaudio audio {
-    background: #ffffff;
-    padding: 5px;
-    display: table-cell;
-    vertical-align: middle;
-    height: 43px;
-    z-index: 9998;
-  }
-
-  #backgroundaudio i {
-    font-size: 40px;
-    display: block;
-    background: #ffffff;
-    padding: 0px;
-    width: 50px;
-    float: none;
-    margin-bottom: -1px;
-    z-index: 9999;
-  }
-</style>
-<script>
+  <script src="jquery.min.js"></script>
+  <script src="three.min.js"></script>
+  <script>
     window.addEventListener("keydown", moveSomething, false);
+
     function moveSomething(e) {
-        switch(e.keyCode) {
-            case 37:
-                window.location.href='./2.html';
-                break;
-            case 39:
-                window.location.href='./4.html';
-                break;
-             }
+      switch (e.keyCode) {
+        case 37: window.location.href = './2.html'; break;
+        case 39: window.location.href = './4.html'; break;
+      }
     }
-</script>
-<script>
-  setTimeout(function(){ window.location.href = './4.html'; }, 492000);
-</script>
+
+    setTimeout(function() {
+      window.location.href = './4.html';
+    }, 557000);
+
+    $(document).ready(function() {
+      $("#backgroundaudio").hide("slow", function() {});
+    });
+  </script>
+
   <script>
     var scene, camera, renderer;
     var geometry, material, mesh;
@@ -94,48 +39,34 @@ body > div {
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
       camera.position.z = 100;
-      geometry = new THREE.BoxGeometry(275, 175, 275);
-      material = new THREE.MeshBasicMaterial({
-        color: 0x1d817e,
-        wireframe: true
-      });
-      mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
-      geometry1 = new THREE.BoxGeometry(162.5, 192.5, 162.5);
-      material1 = new THREE.MeshBasicMaterial({
-        color: 0x50c8cc,
-        wireframe: true
-      });
-      mesh1 = new THREE.Mesh(geometry1, material1);
-      scene.add(mesh1);
-      sphereGeom = new THREE.SphereGeometry(580, 122, 16);
-      spherematerial = new THREE.MeshBasicMaterial({
-        color: 0x35a4a7,
-        wireframe: true
-      });
-      sphere = new THREE.Mesh(sphereGeom, spherematerial);
-      scene.add(sphere);
-      sphere2Geom = new THREE.SphereGeometry(90, 22, 4);
-      sphere2material = new THREE.MeshBasicMaterial({
-        color: 0x047b78,
-        wireframe: true
-      });
-      sphere1 = new THREE.Mesh(sphere2Geom, sphere2material);
-      scene.add(sphere1);
-      sphere3Geom = new THREE.SphereGeometry(90, 22, 4);
-      sphere3material = new THREE.MeshBasicMaterial({
-        color: 0x2fa192,
-        wireframe: true
-      });
-      sphere2 = new THREE.Mesh(sphere3Geom, sphere3material);
-      scene.add(sphere2);
-      sphere4Geom = new THREE.SphereGeometry(99, 32, 4);
-      sphere4material = new THREE.MeshBasicMaterial({
-        color: 0x047b78,
-        wireframe: true
-      });
-      sphere3 = new THREE.Mesh(sphere4Geom, sphere4material);
-      scene.add(sphere3);
+
+      var addMesh = function(meshColor, x, y, z, i) {
+        window['meshGeometry' + i] = new THREE.BoxGeometry(x, y, z);
+        window['meshMaterial' + i] = new THREE.MeshBasicMaterial({
+          color: meshColor,
+          wireframe: true
+        });
+        window['mesh' + i] = new THREE.Mesh(window['meshGeometry' + i], window['meshMaterial' + i]);
+        scene.add(window['mesh' + i]);
+      }
+
+      var addSphere = function(sphereColor, x, y, z, i) {
+        window['sphereGeometry' + i] = new THREE.SphereGeometry(x, y, z);
+        window['sphereMaterial' + i] = new THREE.MeshBasicMaterial({
+          color: sphereColor,
+          wireframe: true
+        });
+        window['sphere' + i] = new THREE.Mesh(window['sphereGeometry' + i], window['sphereMaterial' + i]);
+        scene.add(window['sphere' + i]);
+      }
+
+      addMesh(0x1d817e, 275, 175, 275, 0);
+      addMesh(0x50c8cc, 162.5, 192.5, 162.5, 1);
+      addSphere(0x35a4a7, 580, 122, 16, 0);
+      addSphere(0x047b78, 90, 22, 4, 1);
+      addSphere(0x2fa192, 90, 22, 4, 2);
+      addSphere(0x047b78, 99, 32, 4, 3);
+
       renderer = new THREE.WebGLRenderer({
         alpha: true,
         preserveDrawingBuffer: true
@@ -148,14 +79,14 @@ body > div {
 
     function animate() {
       requestAnimationFrame(animate);
-      mesh.rotation.x += 0.01;
-      mesh.rotation.z += 0.01;
-      mesh.rotation.y += 0.01;
+      mesh0.rotation.x += 0.01;
+      mesh0.rotation.z += 0.01;
+      mesh0.rotation.y += 0.01;
       mesh1.rotation.x += 0.002;
       mesh1.rotation.y += 0.02;
       mesh1.rotation.z += 0.02;
-      sphere.rotation.y += 0.0006;
-      sphere.rotation.z += 0.003;
+      sphere0.rotation.y += 0.0006;
+      sphere0.rotation.z += 0.003;
       sphere1.rotation.y += 0.0006;
       sphere1.rotation.z += 0.0003;
       sphere2.rotation.x += 0.0003;
@@ -164,44 +95,7 @@ body > div {
       renderer.render(scene, camera);
     }
   </script>
-  <script>
-  function toggleFullScreen() {
-    if (!document.fullscreenElement &&    // alternative standard method
-        !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-      } else if (document.documentElement.msRequestFullscreen) {
-        document.documentElement.msRequestFullscreen();
-      } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen();
-      } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      }
-    }
-  }
-  </script>
-  <script>
-    $(document).ready(function() {
-      $("#backgroundaudio").hide("slow", function() {});
-    });
-  </script>
-  <script src: 'jquery.min.js'></script>
-  <style>
-    audio {
-      height: 0px!important;
-      width: 0px!important;
-    }
-  </style>
+
   <div id="backgroundaudio">
     <audio autoplay="" controls="" loop="" preload="">
       <source src="3.wav" type="audio/ogg"></source>

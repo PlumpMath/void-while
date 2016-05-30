@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Void While</title>
+  <script src="three.min.js"></script>
+</head>
+
+<body>
+<style media="screen" type="text/css">
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body > div {
+    height: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+  </style>
+  <style media="screen" type="text/css">
+  body {
+    margin: 0 !important;
+  }
+    #backgroundaudio {
+      display: block;
+      position: static;
+      bottom: -43px;
+      left: 5px;
+      -webkit-transition: all 1s ease-in-out;
+      -moz-transition: all 1s ease-in-out;
+      -ms-transition: all 1s ease-in-out;
+      -o-transition: all 1s ease-in-out;
+      transition: all 1s ease-in-out;
+    }
+
+    #backgroundaudio:hover {
+      bottom: 0;
+      -webkit-transition: all 1s ease-in-out;
+      -moz-transition: all 1s ease-in-out;
+      -ms-transition: all 1s ease-in-out;
+      -o-transition: all 1s ease-in-out;
+      transition: all 1s ease-in-out;
+    }
+
+    #backgroundaudio audio {
+      background: #ffffff;
+      padding: 5px;
+      display: table-cell;
+      vertical-align: middle;
+      height: 43px;
+      z-index: 9998;
+    }
+
+    #backgroundaudio i {
+      font-size: 40px;
+      display: block;
+      background: #ffffff;
+      padding: 0px;
+      width: 50px;
+      float: none;
+      margin-bottom: -1px;
+      z-index: 9999;
+    }
+  </style>
+  <script>
+  window.addEventListener("keydown", moveSomething, false);
+  function moveSomething(e) {
+      switch(e.keyCode) {
+          case 37:
+              window.location.href='./3.html';
+              break;
+          case 39:
+              window.location.href='./5.html';
+              break;
+      }
+  }
+  </script>
+  <script>
+    setTimeout(function(){ window.location.href = './5.html'; }, 492000);
+  </script>
+  <script>
+    var scene, camera, renderer;
+    var geometry, material, mesh;
+    init();
+    animate();
+
+    function init() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+      camera.position.z = 100;
+      geometry = new THREE.BoxGeometry(22.5, 092.5, 222.5);
+      material = new THREE.MeshBasicMaterial({
+        color: 0x86f6f6,
+        wireframe: true
+      });
+      mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+      sphereGeom = new THREE.SphereGeometry(62, 22, 16);
+      spherematerial = new THREE.MeshBasicMaterial({
+        color: 0x9194a5,
+        wireframe: true
+      });
+      sphere = new THREE.Mesh(sphereGeom, spherematerial);
+      scene.add(sphere);
+      sphere2Geom = new THREE.SphereGeometry(590, 62, 4);
+      sphere2material = new THREE.MeshBasicMaterial({
+        color: 0x7194a5,
+        wireframe: true
+      });
+      sphere1 = new THREE.Mesh(sphere2Geom, sphere2material);
+      scene.add(sphere1);
+      sphere3Geom = new THREE.SphereGeometry(32, 32, 9);
+      sphere3material = new THREE.MeshBasicMaterial({
+        color: 0xf3f6f6,
+        wireframe: true
+      });
+      sphere2 = new THREE.Mesh(sphere3Geom, sphere3material);
+      scene.add(sphere2);
+      renderer = new THREE.WebGLRenderer({
+        preserveDrawingBuffer: true
+      });
+      renderer.autoClearColor = false;
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x547789, 1);
+      document.body.appendChild(renderer.domElement);
+      document.body.addEventListener("keydown", function() {
+        THREE.FullScreen.request();
+      }, false);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      mesh.rotation.x += 0.502;
+      mesh.rotation.y += 0.52;
+      sphere.rotation.y += 0.5002;
+      sphere.rotation.z += 0.503;
+      sphere1.rotation.y += 0.502;
+      sphere1.rotation.z += 0.5002;
+      sphere2.rotation.x += 0.504;
+      sphere2.rotation.y += 0.5008;
+      sphere2.rotation.z += 3.1;
+      renderer.render(scene, camera);
+    }
+  </script>
+  <script>
+    $(document).ready(function() {
+      $("#backgroundaudio").hide("slow", function() {});
+    });
+    document.body.addEventListener("keydown", function() {
+      THREEx.FullScreen.request();
+    }, false);
+  </script>
+  <script src: 'jquery.min.js'></script>
+  <style>
+    audio {
+      height: 0px!important;
+      width: 0px!important;
+    }
+  </style>
+  <div id="backgroundaudio">
+    <audio autoplay="" controls="" loop="" preload="">
+      <source src="4.wav" type="audio/ogg"></source>
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</body>
+
+</html>

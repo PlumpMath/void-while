@@ -1,6 +1,5 @@
-'use strict';
-var Menu = require('menu');
-const electron = require('electron');
+const electron  = require("electron");
+const {Menu} = require("electron");
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
@@ -8,32 +7,28 @@ let mainWindow;
 function createWindow () {
   mainWindow = new BrowserWindow({width: 800, height: 600});
   mainWindow.setFullScreen(true);
-  mainWindow.loadURL('file://' + __dirname + '/1.html');
-  mainWindow.on('closed', function() {
-    mainWindow = null;
-  });
+  mainWindow.loadURL("file://" + __dirname + "/1.html");
+  mainWindow.on("closed", () => mainWindow = null);
 }
 
-app.on('ready', createWindow);
+app.on("ready", createWindow);
 
-app.on('ready', function () {
-  var template = [{
-     label: "Application",
-     submenu: [
-         { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
-     ]}
- ];
- Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+app.on("ready", () => {
+  Menu.setApplicationMenu(Menu.buildFromTemplate([{
+    label: "Application",
+    submenu: [
+      { label: "Quit",
+        accelerator: "Command+Q",
+        click: () => app.quit()
+      }
+    ]
+  }]));
 });
 
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
 });
 
-app.on('activate', function () {
-  if (mainWindow === null) {
-    createWindow();
-  }
+app.on("activate", () => {
+  if (mainWindow === null) createWindow();
 });

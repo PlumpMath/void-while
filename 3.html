@@ -1,107 +1,103 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <title>Void While</title>
+    <link href="styles.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <script src="three.min.js"></script>
+    <script>
+      var scene, camera, renderer, geometry, material, mesh;
 
-<head>
-  <meta charset="utf-8">
-  <title>Void While</title>
-  <link href="styles.css" type="text/css" rel="stylesheet" />
-</head>
+      function init () {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 1, 10000);
+        camera.position.z = 100;
 
-<body>
-  <script src="jquery.min.js"></script>
-  <script src="three.min.js"></script>
-  <script>
-    window.addEventListener("keydown", moveSomething, false);
+        function addMesh (meshColor, x, y, z, i) {
+          window["meshGeometry"+i] = new THREE.BoxGeometry(x, y, z);
+          window["meshMaterial"+i] = new THREE.MeshBasicMaterial({
+            color: meshColor,
+            wireframe: true
+          });
+          window["mesh"+i] = new THREE.Mesh(window["meshGeometry"+i],
+                                            window["meshMaterial"+i]);
+          scene.add(window["mesh"+i]);
+        }
 
-    function moveSomething(e) {
-      switch (e.keyCode) {
-        case 37: window.location.href = './2.html'; break;
-        case 39: window.location.href = './4.html'; break;
-      }
-    }
+        function addSphere (sphereColor, x, y, z, i) {
+          window["sphereGeometry"+i] = new THREE.SphereGeometry(x, y, z);
+          window["sphereMaterial"+i] = new THREE.MeshBasicMaterial({
+            color: sphereColor,
+            wireframe: true
+          });
+          window["sphere"+i] = new THREE.Mesh(window["sphereGeometry"+i],
+                                              window["sphereMaterial"+i]);
+          scene.add(window["sphere"+i]);
+        }
 
-    setTimeout(function() {
-      window.location.href = './4.html';
-    }, 557000);
+        addMesh(0x1d817e, 275, 175, 275, 0);
+        addMesh(0x50c8cc, 162.5, 192.5, 162.5, 1);
+        addSphere(0x35a4a7, 580, 122, 16, 0);
+        addSphere(0x047b78, 90, 22, 4, 1);
+        addSphere(0x2fa192, 90, 22, 4, 2);
+        addSphere(0x047b78, 99, 32, 4, 3);
 
-    $(document).ready(function() {
-      $("#backgroundaudio").hide("slow", function() {});
-    });
-  </script>
-
-  <script>
-    var scene, camera, renderer;
-    var geometry, material, mesh;
-    init();
-    animate();
-
-    function init() {
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-      camera.position.z = 100;
-
-      var addMesh = function(meshColor, x, y, z, i) {
-        window['meshGeometry' + i] = new THREE.BoxGeometry(x, y, z);
-        window['meshMaterial' + i] = new THREE.MeshBasicMaterial({
-          color: meshColor,
-          wireframe: true
+        renderer = new THREE.WebGLRenderer({
+          alpha: true,
+          preserveDrawingBuffer: true
         });
-        window['mesh' + i] = new THREE.Mesh(window['meshGeometry' + i], window['meshMaterial' + i]);
-        scene.add(window['mesh' + i]);
+
+        renderer.autoClearColor = false;
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0xf8f0a9, 1);
+        document.body.appendChild(renderer.domElement);
       }
 
-      var addSphere = function(sphereColor, x, y, z, i) {
-        window['sphereGeometry' + i] = new THREE.SphereGeometry(x, y, z);
-        window['sphereMaterial' + i] = new THREE.MeshBasicMaterial({
-          color: sphereColor,
-          wireframe: true
-        });
-        window['sphere' + i] = new THREE.Mesh(window['sphereGeometry' + i], window['sphereMaterial' + i]);
-        scene.add(window['sphere' + i]);
+      function animate() {
+        requestAnimationFrame(animate);
+        mesh0.rotation.x += 0.01;
+        mesh0.rotation.z += 0.01;
+        mesh0.rotation.y += 0.01;
+        mesh1.rotation.x += 0.002;
+        mesh1.rotation.y += 0.02;
+        mesh1.rotation.z += 0.02;
+        sphere0.rotation.y += 0.0006;
+        sphere0.rotation.z += 0.003;
+        sphere1.rotation.y += 0.0006;
+        sphere1.rotation.z += 0.0003;
+        sphere2.rotation.x += 0.0003;
+        sphere2.rotation.y += 0.0003;
+        sphere2.rotation.z += 0.0003;
+        renderer.render(scene, camera);
       }
 
-      addMesh(0x1d817e, 275, 175, 275, 0);
-      addMesh(0x50c8cc, 162.5, 192.5, 162.5, 1);
-      addSphere(0x35a4a7, 580, 122, 16, 0);
-      addSphere(0x047b78, 90, 22, 4, 1);
-      addSphere(0x2fa192, 90, 22, 4, 2);
-      addSphere(0x047b78, 99, 32, 4, 3);
+      init();
+      animate();
+      
+      function next (e) {
+        switch (e.keyCode) {
+          case 37: window.location.href = "./2.html"; break;
+          case 39: window.location.href = "./4.html"; break;
+        }
+      }
+      
+      window.addEventListener("keydown", next, false);
+      
+      setTimeout(function() {
+        window.location.href = "./4.html";
+      }, 557000);
 
-      renderer = new THREE.WebGLRenderer({
-        alpha: true,
-        preserveDrawingBuffer: true
+      document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("backgroundaudio").style.display = "none";
       });
-      renderer.autoClearColor = false;
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setClearColor(0xf8f0a9, 1);
-      document.body.appendChild(renderer.domElement);
-    }
-
-    function animate() {
-      requestAnimationFrame(animate);
-      mesh0.rotation.x += 0.01;
-      mesh0.rotation.z += 0.01;
-      mesh0.rotation.y += 0.01;
-      mesh1.rotation.x += 0.002;
-      mesh1.rotation.y += 0.02;
-      mesh1.rotation.z += 0.02;
-      sphere0.rotation.y += 0.0006;
-      sphere0.rotation.z += 0.003;
-      sphere1.rotation.y += 0.0006;
-      sphere1.rotation.z += 0.0003;
-      sphere2.rotation.x += 0.0003;
-      sphere2.rotation.y += 0.0003;
-      sphere2.rotation.z += 0.0003;
-      renderer.render(scene, camera);
-    }
-  </script>
-
-  <div id="backgroundaudio">
-    <audio autoplay="" controls="" loop="" preload="">
-      <source src="3.wav" type="audio/ogg"></source>
-      Your browser does not support the audio element.
-    </audio>
-  </div>
-</body>
-
+    </script>
+    <div id="backgroundaudio">
+      <audio autoplay="" controls="" loop="" preload="">
+        <source src="3.wav" type="audio/ogg"></source>
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </body>
 </html>
